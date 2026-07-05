@@ -137,6 +137,16 @@ def delete_file(filename):
         logging.error(f"Delete error: {e}")
         return jsonify({"error": str(e)}), 500
 
+#-----------------------------------------------------------------------------#
+# Ask Route                                                                   #
+#   - Receives the user's question                                            #
+#   - Initializes an MCP Client Session                                       #
+#   - Loads available skills dynamically                                      #
+#   - Retrieves available tools from the MCP server                           #
+#   - Sends context and tool definitions to Gemini                            #
+#   - Executes tool calls when requested                                      #
+#   - Returns a formatted response                                            #
+#-----------------------------------------------------------------------------#
 @app.route("/ask", methods=["POST"])
 def ask_question():
     """Endpoint for Q&A using Gemini AI Studio."""
