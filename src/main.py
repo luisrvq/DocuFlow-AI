@@ -91,6 +91,13 @@ def receive_event():
         logging.error(f"Error processing {file_name}: {e}")
         return str(e), 500
 
+#-----------------------------------------------------------------------------#
+# Upload Route                                                                #
+#   - Receiving uploaded files                                                #
+#   - Processing document metadata                                            #
+#   - Storing files in Google Cloud Storage                                   #
+#   - Logging metadata for retrieval                                          #
+#-----------------------------------------------------------------------------#
 @app.route("/upload", methods=["POST"])
 def upload_file():
     """Handle UI file uploads."""
@@ -299,6 +306,12 @@ def ask_question():
                 tb += f"[{idx}] {type(sub_e).__name__}: {str(sub_e)}\\n"
         return jsonify({"error": tb}), 500
 
+#-----------------------------------------------------------------------------#
+# Export Route                                                                #
+#   - Formatting AI-generated results                                         #
+#   - Generating CSV, XLSX, or PDF outputs                                    #
+#   - Returning downloadable files to the user                                #
+#-----------------------------------------------------------------------------#
 @app.route("/export", methods=["POST"])
 def export_data():
     try:
