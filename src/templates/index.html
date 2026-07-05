@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuFlow AI Pipeline</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=4.0">
+</head>
+<body>
+    <div class="background-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+    
+    <main class="container">
+        <header>
+            <h1>DocuFlow <span class="gradient-text">AI</span></h1>
+            <p>Serverless Document Processing Pipeline</p>
+        </header>
+
+        <div class="dashboard-grid">
+            <aside class="sidebar-wrapper" id="sidebarWrapper">
+                <section class="upload-section glass-panel">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h2 style="margin-bottom: 0;">Upload Document</h2>
+                        <button class="icon-btn" id="toggleSidebarBtn" title="Toggle Sidebar">‹</button>
+                    </div>
+                    <form id="uploadForm">
+                        <div class="file-drop-area" id="dropZone">
+                            <span class="file-message">Drag & drop or click to upload (.pdf, .docx, .png, .xlsx)</span>
+                            <input type="file" id="fileInput" name="file" multiple required>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button type="submit" class="btn primary-btn" id="uploadBtn">Upload to Pipeline</button>
+                            <button type="button" class="btn secondary-btn" id="cancelUploadBtn" style="display: none;">Cancel</button>
+                        </div>
+                    </form>
+                    <div id="uploadStatus" class="status-message"></div>
+                </section>
+
+                <section class="files-section glass-panel" id="filesSidebar">
+                    <div class="sidebar-header">
+                        <h2>Processed Documents</h2>
+                        <button class="icon-btn" id="toggleSidebarBtnHidden" style="display:none;" title="Toggle Sidebar">›</button>
+                    </div>
+                <div class="session-management">
+                    <label for="sessionIdInput">Session ID:</label>
+                    <div class="session-input-group">
+                        <div id="docCountBox" class="doc-count-box" style="display:none;"># Docs: <span>0</span></div>
+                        <input type="text" id="sessionIdInput" placeholder="Enter Session ID">
+                        <button class="btn icon-btn btn-restore" id="restoreSessionBtn" title="Restore Session">Restore</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="selectAllDocs" title="Select All"> Sel</th>
+                                <th>Filename</th>
+                                <th>Date & Time</th>
+                                <th>ACT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for doc in documents %}
+                            <tr>
+                                <td><input type="checkbox" class="doc-checkbox" value="{{ doc.filename }}"></td>
+                                <td class="filename-cell" title="{{ doc.filename }}">{{ doc.filename }}</td>
+                                <td>{{ doc.upload_time }}</td>
+                                <td>
+                                    <button class="btn icon-btn delete-btn" data-filename="{{ doc.filename }}" title="Delete">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="4" class="empty-state">No documents processed yet.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            </aside>
+
+            <section class="qa-section glass-panel">
+                <h2>Ask DocuFlow</h2>
+                <p class="subtitle">Query your processed documents</p>
+                <div class="chat-container" id="chatHistory">
+                    <!-- Chat messages will appear here -->
+                </div>
+                <form id="qaForm" class="qa-form">
+                    <textarea id="questionInput" placeholder="Ask a question about your documents..." rows="2" required></textarea>
+                    <button type="submit" class="btn primary-btn">Ask</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="{{ url_for('static', filename='app.js') }}?v=4.0" defer></script>
+</body>
+</html>

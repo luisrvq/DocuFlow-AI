@@ -1,0 +1,40 @@
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Mac OS
+.DS_Store
+
+# Google Cloud credentials (if saved locally)
+*.json
+!package.json
+!skills.json
+
+# IDEs
+.idea/
+.vscode/
+
+# Local data
+data/
+uploads/
+*.csv
+*.pdf
+*.xlsx
+
+# Scratch files
+src/test_*.py
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup

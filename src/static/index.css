@@ -1,0 +1,518 @@
+:root {
+    --bg-color: #0b0c10;
+    --panel-bg: rgba(31, 40, 51, 0.6);
+    --panel-border: rgba(69, 162, 158, 0.2);
+    --accent-primary: #66fcf1;
+    --accent-secondary: #45a29e;
+    --text-primary: #c5c6c7;
+    --text-header: #ffffff;
+    --danger: #ff4b4b;
+    --success: #45a29e;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Dynamic Background Orbs */
+.background-orbs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.5;
+    animation: float 20s infinite alternate;
+}
+
+.orb-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #4b0082, transparent);
+    top: -100px;
+    left: -100px;
+}
+
+.orb-2 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #00008b, transparent);
+    bottom: -150px;
+    right: -100px;
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(100px, 50px); }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+header h1 {
+    font-size: 3.5rem;
+    color: var(--text-header);
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #b026ff, var(--accent-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism Panels */
+.glass-panel {
+    background: var(--panel-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--panel-border);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.glass-panel:hover {
+    transform: translateY(-2px);
+    border-color: rgba(69, 162, 158, 0.4);
+}
+
+h2 {
+    color: var(--text-header);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+/* File Upload Zone */
+.file-drop-area {
+    border: 2px dashed var(--accent-secondary);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(0,0,0,0.2);
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.file-message {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+}
+
+.file-drop-area:hover, .file-drop-area.dragover {
+    background: rgba(69, 162, 158, 0.1);
+    border-color: var(--accent-primary);
+}
+
+.file-drop-area input[type="file"] {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.primary-btn {
+    background: linear-gradient(45deg, #1f2833, var(--accent-secondary));
+    color: white;
+    border: 1px solid var(--accent-primary);
+    width: 100%;
+}
+
+.primary-btn:hover {
+    box-shadow: 0 0 15px rgba(102, 252, 241, 0.4);
+    background: linear-gradient(45deg, var(--accent-secondary), #1f2833);
+}
+
+.secondary-btn {
+    background: rgba(0,0,0,0.3);
+    color: var(--text-primary);
+    border: 1px solid var(--accent-secondary);
+    width: 100%;
+}
+.secondary-btn:hover {
+    background: rgba(69, 162, 158, 0.2);
+    color: white;
+}
+
+.icon-btn {
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    background: rgba(255, 75, 75, 0.1);
+    color: var(--danger);
+    border: 1px solid var(--danger);
+    border-radius: 4px;
+}
+
+.icon-btn svg {
+    width: 1.1em;
+    height: 1.1em;
+}
+
+.icon-btn:hover {
+    background: var(--danger);
+    color: white;
+}
+
+.status-message {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: bold;
+    min-height: 1.5rem;
+}
+
+/* Dashboard Layout */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 2rem;
+    transition: grid-template-columns 0.3s ease;
+}
+
+.dashboard-grid.sidebar-collapsed {
+    grid-template-columns: 50px 1fr;
+    gap: 1rem;
+}
+
+.dashboard-grid.sidebar-collapsed .session-management,
+.dashboard-grid.sidebar-collapsed .table-container,
+.dashboard-grid.sidebar-collapsed .sidebar-header h2,
+.dashboard-grid.sidebar-collapsed .upload-section {
+    display: none;
+}
+
+.dashboard-grid.sidebar-collapsed .files-section {
+    padding: 1rem 0.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sidebar-wrapper > .glass-panel {
+    margin-bottom: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.sidebar-header h2 {
+    margin-bottom: 0;
+    font-size: 1.2rem;
+}
+
+.session-management {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--panel-border);
+}
+
+.session-management label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--accent-primary);
+    margin-bottom: 0.3rem;
+}
+
+.session-input-group {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.session-input-group input {
+    width: 150px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--panel-border);
+    border-radius: 4px;
+    padding: 0.4rem;
+    color: white;
+    font-family: inherit;
+    font-size: 0.8rem;
+}
+
+.session-input-group .btn-restore {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+    min-width: 70px;
+}
+
+.doc-count-box {
+    padding: 0.4rem 0.6rem;
+    background: rgba(69, 162, 158, 0.1);
+    border: 1px solid var(--accent-secondary);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    display: inline-block;
+    white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tables */
+.table-container {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: calc(100vh - 350px);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.5rem 0.3rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.filename-cell {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-icon {
+    font-size: 1.1em;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+th {
+    color: var(--accent-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+tr:hover td {
+    background: rgba(255,255,255,0.02);
+}
+
+.badge {
+    background: rgba(69, 162, 158, 0.2);
+    color: var(--accent-primary);
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.score {
+    color: #ffd700;
+    font-weight: bold;
+}
+
+/* Q&A Section */
+.chat-container {
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    height: 550px;
+    overflow-y: auto;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.msg {
+    max-width: 85%;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.msg.user {
+    background: rgba(69, 162, 158, 0.2);
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+}
+
+.msg.bot {
+    background: rgba(255,255,255,0.05);
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+    overflow-x: auto;
+}
+
+.qa-form {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.qa-form textarea {
+    flex: 1;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 0.8rem;
+    color: white;
+    font-family: inherit;
+    resize: none;
+    line-height: 1.4;
+}
+
+.qa-form textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+.qa-form button {
+    width: 120px;
+    align-self: center;
+}
+
+/* Spinner Animation */
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--accent-primary);
+    animation: spin 1s ease-in-out infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Markdown Render Styles in Chat */
+.msg.bot p {
+    margin-bottom: 0.8rem;
+}
+.msg.bot p:last-child {
+    margin-bottom: 0;
+}
+.msg.bot strong {
+    color: var(--accent-primary);
+}
+.msg.bot ul, .msg.bot ol {
+    margin-left: 1.5rem;
+    margin-bottom: 0.8rem;
+}
+.msg.bot li {
+    margin-bottom: 0.3rem;
+}
+.msg.bot table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+}
+.msg.bot th, .msg.bot td {
+    padding: 0.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+}
+.msg.bot th {
+    background: rgba(69, 162, 158, 0.2);
+    color: var(--accent-primary);
+}
+.msg.bot .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+.msg.bot .table-wrapper table {
+    margin: 0;
+}
+
+/* Export Buttons */
+.export-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.export-actions .btn {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    color: var(--text-primary);
+}
+.export-actions .btn:hover {
+    background: rgba(69, 162, 158, 0.2);
+    color: white;
+}

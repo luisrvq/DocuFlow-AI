@@ -1,0 +1,6 @@
+project_id   = "day-aiagents-2026"
+region       = "us-central1"
+bucket_name  = "day-aiagents-2026-doc-ingest"
+dataset_id   = "doc_processing_metadata"
+table_id     = "documents"
+service_name = "doc-processor-service"
