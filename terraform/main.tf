@@ -135,7 +135,7 @@ resource "google_cloud_run_v2_service" "processor_service" {
       }
       env {
         name  = "GEMINI_API_KEY"
-        value = "AIzaSyC6M-uhkuJxTd5VKhNPJQjb2RdttVJ1Ywk"
+        value = var.gemini_api_key
       }
       env {
         name  = "DATASET_ID"

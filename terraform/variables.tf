@@ -31,3 +31,9 @@ variable "service_name" {
   type        = string
   default     = "doc-processor-service"
 }
+
+variable "gemini_api_key" {
+  description = "The Gemini API Key"
+  type        = string
+  sensitive   = true
+}
